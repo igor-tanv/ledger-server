@@ -8,6 +8,10 @@ router.get('/api', async (req, res) => {
   res.status(200).json(ledger.sort((a, b) => b.purchaseDate - a.purchaseDate))
 })
 
+router.get('/api/test', async (req, res) => {
+  res.status(200).json({ "food": "bar" })
+})
+
 router.post('/api/ledger', async (req, res) => {
   res.status(200).json(LedgerService.create(req.body))
 })
