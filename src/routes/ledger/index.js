@@ -9,7 +9,7 @@ router.get('/api', async (req, res) => {
 })
 
 router.get('/api/test', async (req, res) => {
-  res.status(200).json({ "food": "bar" })
+  res.status(200).json({ "foo": "bar" })
 })
 
 router.post('/api/ledger', async (req, res) => {
