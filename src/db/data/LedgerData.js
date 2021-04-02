@@ -1,7 +1,7 @@
 import { DbProvider } from '../providers/DbProvider'
 import { IdentityHelpers } from '../../helpers/IdentityHelpers'
 
-const MENU = 'menu'
+const LEDGER = 'ledger'
 
 const OrderStatus = {
   Preparing = 1,
@@ -12,7 +12,9 @@ export class LedgerData {
 
   static async getLedger() {
     const db = await DbProvider.getConnection()
-    return (await db.select().from(MENU))
+    const temp = await db.select().from(LEDGER)
+    console.log(temp, 16)
+    return temp
   }
 
   static async getOrderItems(orderId) {

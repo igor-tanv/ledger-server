@@ -1,12 +1,19 @@
 const express = require('express')
-const LedgerService = require('../../services/index')
+import { LedgerService } from '../../services/index'
 
 const router = new express.Router()
 
 router.get('/api', async (req, res) => {
-  const ledger = await LedgerService.read()
+  const ledger = await LedgerService.getLedger()
+  console.log(ledger, 8)
   res.status(200).json(ledger.sort((a, b) => b.purchaseDate - a.purchaseDate))
 })
+
+// old route
+// router.get('/api', async (req, res) => {
+//   const ledger = await LedgerService.read()
+//   res.status(200).json(ledger.sort((a, b) => b.purchaseDate - a.purchaseDate))
+// })
 
 router.get('/api/test', async (req, res) => {
   res.status(200).json({ "foo": "bar" })
