@@ -9,11 +9,11 @@ export class DbProvider {
       const config = {
         client: 'mysql',
         connection: {
-          host: process.env.DATABASE_URL,
+          host: process.env.DB_URI,
           port: 3306,
-          user: 'admin',
+          user: process.env.USER,
           password: process.env.PASSWORD,
-          database: 'restaurant',
+          database: process.env.DB,
         }
       }
       this.mySqlConnection = Knex(config).on('query-error', function (error, obj, builder) {
