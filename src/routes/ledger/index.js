@@ -1,6 +1,5 @@
 const express = require('express')
 const LedgerService = require('../../services/index')
-console.log(LedgerService, 4)
 
 const router = new express.Router()
 
@@ -15,7 +14,8 @@ router.get('/api/test', async (req, res) => {
 })
 
 router.post('/api/ledger', async (req, res) => {
-  res.status(200).json(LedgerService.create(req.body))
+  console.log(req.body, 18)
+  res.status(200).json(LedgerService.postLedger(req.body))
 })
 
 router.post('/api/ledger/clear', async (req, res) => {

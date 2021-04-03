@@ -7,7 +7,8 @@ const getLedger = async () => {
 }
 
 const postLedger = async (data) => {
-  const temp = await LedgerData.postLedger()
+  console.log(data, 10)
+  const temp = await LedgerData.postLedger(data)
   console.log(temp, 7)
   return temp
 }
