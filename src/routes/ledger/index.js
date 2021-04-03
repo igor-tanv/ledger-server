@@ -4,7 +4,7 @@ const LedgerService = require('../../services/index')
 const router = new express.Router()
 
 router.get('/api', async (req, res) => {
-  const ledger = await LedgerService.getLedger()
+  const ledger = await LedgerService.getActiveLedger()
   res.status(200).json(ledger.sort((a, b) => b.purchaseDate - a.purchaseDate))
 })
 

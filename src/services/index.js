@@ -1,7 +1,7 @@
 const LedgerData = require('../db/data/LedgerData')
 
-const getLedger = async () => {
-  const ledger = await LedgerData.getLedger()
+const getActiveLedger = async () => {
+  const ledger = await LedgerData.getActiveLedger()
   return ledger.map((row) => {
     if (row['id'] !== undefined) { row['id'] = row['id'].toString() }
     return row
@@ -17,7 +17,7 @@ const clearLedger = async () => {
 }
 
 module.exports = {
-  getLedger,
+  getActiveLedger,
   postLedger,
   clearLedger
 }

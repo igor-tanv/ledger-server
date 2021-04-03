@@ -8,9 +8,9 @@ const LedgerEntryStatus = {
   Cleared: 1
 }
 
-const getLedger = async () => {
+const getActiveLedger = async () => {
   const db = await DbProvider.getConnection()
-  return await db.select().from(LEDGER)
+  return await db.select().from(LEDGER).where({ cleared: 0 })
 }
 
 const clearLedger = async () => {
@@ -32,7 +32,7 @@ const postLedger = async (data) => {
 }
 
 module.exports = {
-  getLedger,
+  getActiveLedger,
   postLedger,
   clearLedger
 }
