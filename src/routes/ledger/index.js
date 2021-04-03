@@ -1,5 +1,6 @@
 const express = require('express')
-import { LedgerService } from '../../services/index'
+const LedgerService = require('../../services/index')
+console.log(LedgerService, 4)
 
 const router = new express.Router()
 

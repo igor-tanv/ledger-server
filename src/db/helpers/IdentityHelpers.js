@@ -1,6 +1,6 @@
-import { performance } from 'perf_hooks'
+const performance = require('perf_hooks')
 
-export class IdentityHelpers {
+class IdentityHelpers {
   static generateUUID() {
     let d = new Date().getTime()
     if (typeof performance !== 'undefined' && typeof performance.now === 'function') {
@@ -15,3 +15,5 @@ export class IdentityHelpers {
     })
   }
 }
+
+module.exports.IdentityHelpers

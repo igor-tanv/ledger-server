@@ -1,11 +1,19 @@
-import { LedgerData } from '../db/data/LedgerData'
+const LedgerData = require('../db/data/LedgerData')
 
-export class LedgerService {
-
-  static async getLedger() {
-    const temp = await LedgerData.getLedger()
-    console.log(temp, 7)
-    return temp
-  }
-
+const getLedger = async () => {
+  const temp = await LedgerData.getLedger()
+  console.log(temp, 7)
+  return temp
 }
+
+const postLedger = async (data) => {
+  const temp = await LedgerData.postLedger()
+  console.log(temp, 7)
+  return temp
+}
+
+module.exports = {
+  getLedger,
+  postLedger
+}
+
