@@ -1,16 +1,14 @@
 const LedgerData = require('../db/data/LedgerData')
 
 const getLedger = async () => {
-  const temp = await LedgerData.getLedger()
-  console.log(temp, 7)
-  return temp
+  return await LedgerData.getLedger().map((row) => {
+    if (row['id'] !== undefined) { row['id'] = row['id'].toString() }
+    return row
+  })
 }
 
 const postLedger = async (data) => {
-  console.log(data, 10)
-  const temp = await LedgerData.postLedger(data)
-  console.log(temp, 7)
-  return temp
+  return await LedgerData.postLedger(data)
 }
 
 module.exports = {

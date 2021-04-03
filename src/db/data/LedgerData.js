@@ -5,20 +5,19 @@ const LEDGER = 'ledger'
 
 const getLedger = async () => {
   const db = await DbProvider.getConnection()
-  const temp = await db.select().from(LEDGER)
-  console.log(temp, 16)
-  return temp
+  return await db.select().from(LEDGER)
 }
 
 const postLedger = async (data) => {
   const db = await DbProvider.getConnection()
   const ledgerEntry = {
     id: uuidv4(),
+    user: data.user,
     item: data.item,
     cost: data.cost,
+    purchase_date: data.purchaseDate
   }
-  await db.insert(ledgerEntry).into(LEDGER)
-  return ledgerEntry
+  return await db.insert(ledgerEntry).into(LEDGER)
 }
 
 module.exports = {
