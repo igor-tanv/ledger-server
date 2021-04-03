@@ -1,5 +1,5 @@
 const DbProvider = require('../providers/DbProvider')
-const IdentityHelpers = require('../helpers/IdentityHelpers')
+const uuidv4 = require("uuid/v4")
 
 const LEDGER = 'ledger'
 
@@ -13,7 +13,7 @@ const getLedger = async () => {
 const postLedger = async (data) => {
   const db = await DbProvider.getConnection()
   const ledgerEntry = {
-    id: IdentityHelpers.generateUUID(),
+    id: uuidv4(),
     item: data.item,
     cost: data.cost,
   }
