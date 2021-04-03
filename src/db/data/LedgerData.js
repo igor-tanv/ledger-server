@@ -17,32 +17,14 @@ export class LedgerData {
     return temp
   }
 
-  static async getOrderItems(orderId) {
+  static async postLedgerEntry(data) {
     const db = await DbProvider.getConnection()
-    return await db(ORDER_ITEM).where({ order_id: orderId })
-  }
-
-  static async updateOrder(orderId) {
-    const db = await DbProvider.getConnection()
-    await db(ORDER).where({ id: orderId }).update({ status: OrderStatus.Ready })
-    return this.getOrder(orderId)
-  }
-
-  static async placeOrder(data) {
-    const db = await DbProvider.getConnection()
-    const order = {
+    const ledgerEntry = {
       id: IdentityHelpers.generateUUID(),
-      status: OrderStatus.Preparing
+      item: data.item,
+      cost: data.cost,
     }
-    const rows = data.map((row) => ({
-      order_id: order.id,
-      item_id: row.id,
-      item_count: row.count
-    }))
-
-    await db.insert(order).into(ORDER)
-    await db.batchInsert(ORDER_ITEM, rows)
-
-    return order
+    await db.insert(ledgerEntry).into(LEDGER)
+    return ledgerEntry
   }
 }
