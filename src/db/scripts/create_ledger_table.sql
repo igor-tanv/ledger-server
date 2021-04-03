@@ -4,5 +4,5 @@ CREATE TABLE IF NOT EXISTS `ledger` (
   item varchar(255) NOT NULL,
   cost INT NOT NULL,
   purchase_date INT NOT NULL,
-  cleared BOOLEAN DEFAULT false
+  cleared TINYINT(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

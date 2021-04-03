@@ -9,6 +9,7 @@ const getActiveLedger = async () => {
 }
 
 const postLedger = async (data) => {
+  data.purchaseDate = new Date(data.purchaseDate).getTime()
   return await LedgerData.postLedger(data)
 }
 
