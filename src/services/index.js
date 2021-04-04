@@ -2,6 +2,7 @@ const LedgerData = require('../db/data/LedgerData')
 
 const getActiveLedger = async () => {
   const ledger = await LedgerData.getActiveLedger()
+  console.log(ledger, 5)
   return ledger.map((row) => {
     if (row['id'] !== undefined) { row['id'] = row['id'].toString() }
     return row
@@ -9,9 +10,8 @@ const getActiveLedger = async () => {
 }
 
 const postLedger = async (data) => {
-  console.log(data, 12)
   data.purchaseDate = new Date(data.purchaseDate).getTime()
-  console.log(data, 13)
+  console.log(data, 14)
   return await LedgerData.postLedger(data)
 }
 
