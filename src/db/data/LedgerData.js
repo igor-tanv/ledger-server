@@ -28,7 +28,6 @@ const postLedger = async (data) => {
     purchase_date: data.purchaseDate,
     cleared: LedgerEntryStatus.Pending
   }
-  console.log(ledgerEntry, 31)
   return await db.insert(ledgerEntry).into(LEDGER)
 }
 

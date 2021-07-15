@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser');
+require('dotenv').config()
 
 const ledgerApi = require('./routes/ledger/index')
 const port = process.env.PORT

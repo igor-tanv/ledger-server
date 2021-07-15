@@ -1,4 +1,16 @@
 const Knex = require('knex')
+const os = require('os');
+let db, dbUri
+
+if (os.hostname().indexOf("local") > -1) {
+  db = process.env.DEV_DB
+  dbUri = process.env.DEV_DB_URI
+}
+// Server running on remote server
+else {
+  db = process.env.DB
+  dbUri = process.env.DB_URI
+}
 
 
 mySqlConnection = {}
@@ -9,11 +21,11 @@ const getConnection = async () => {
     const config = {
       client: 'mysql',
       connection: {
-        host: process.env.DB_URI,
+        host: dbUri,
         port: 3306,
         user: process.env.USER,
         password: process.env.PASSWORD,
-        database: process.env.DB,
+        database: db,
       }
     }
     this.mySqlConnection = Knex(config).on('query-error', function (error, obj, builder) {
