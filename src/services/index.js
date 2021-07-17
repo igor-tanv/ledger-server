@@ -1,5 +1,6 @@
 const LedgerData = require('../db/data/LedgerData')
 
+
 const getActiveLedger = async () => {
   const ledger = await LedgerData.getActiveLedger()
   return ledger.map((row) => {
@@ -13,6 +14,11 @@ const postLedger = async (data) => {
   return await LedgerData.postLedger(data)
 }
 
+const createTempLedger = async (data) => {
+  data.date = new Date(data.date).getTime()
+  return await LedgerData.createTempLedger(data)
+}
+
 const clearLedger = async () => {
   return await LedgerData.clearLedger()
 }
@@ -20,6 +26,7 @@ const clearLedger = async () => {
 module.exports = {
   getActiveLedger,
   postLedger,
+  createTempLedger,
   clearLedger
 }
 

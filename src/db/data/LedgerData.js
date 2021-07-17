@@ -2,10 +2,16 @@ const DbProvider = require('../providers/DbProvider')
 const { v4: uuidv4 } = require('uuid');
 
 const LEDGER = 'ledger'
+const TEMP_LEDGER = 'temp_ledger'
 
 const LedgerEntryStatus = {
   Pending: 0,
   Cleared: 1
+}
+
+const TempLedgerStatus = {
+  Active: 0,
+  Inactive: 1
 }
 
 const getActiveLedger = async () => {
@@ -31,8 +37,20 @@ const postLedger = async (data) => {
   return await db.insert(ledgerEntry).into(LEDGER)
 }
 
+const createTempLedger = async (data) => {
+  const db = await DbProvider.getConnection()
+  const tempLedger = {
+    id: uuidv4(),
+    users: data.users,
+    created_at: data.date,
+    active: TempLedgerStatus.Active
+  }
+  return await db.insert(tempLedger).into(TEMP_LEDGER)
+}
+
 module.exports = {
   getActiveLedger,
   postLedger,
+  createTempLedger,
   clearLedger
 }
