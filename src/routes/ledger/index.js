@@ -13,6 +13,12 @@ router.get('/api/ledger/temp', async (req, res) => {
   res.status(200).json(ledgers)
 })
 
+router.get('/api/ledger/temp/:id', async (req, res) => {
+  console.log(req.params.id, 17)
+  const ledger = await LedgerService.getTempLedgerById(req.params.id)
+  res.status(200).json(ledger)
+})
+
 router.post('/api/ledger', async (req, res) => {
   res.status(200).json(LedgerService.postLedger(req.body))
 })

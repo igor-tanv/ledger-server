@@ -17,6 +17,12 @@ const getActiveTempLedgers = async () => {
   })
 }
 
+const getTempLedgerById = async (id) => {
+  const ledger = await LedgerData.getTempLedgerById(id)
+  console.log(ledger, 22)
+  return ledger
+}
+
 const postLedger = async (data) => {
   data.purchaseDate = new Date(data.purchaseDate).getTime()
   return await LedgerData.postLedger(data)
@@ -34,6 +40,7 @@ const clearLedger = async () => {
 module.exports = {
   getActiveLedger,
   getActiveTempLedgers,
+  getTempLedgerById,
   postLedger,
   createTempLedger,
   clearLedger
