@@ -19,6 +19,11 @@ const getActiveLedger = async () => {
   return await db.select().from(LEDGER).where({ cleared: 0 })
 }
 
+const getActiveTempLedgers = async () => {
+  const db = await DbProvider.getConnection()
+  return await db.select().from(TEMP_LEDGER).where({ active: 0 })
+}
+
 const clearLedger = async () => {
   const db = await DbProvider.getConnection()
   return await db.select().from(LEDGER).update({ cleared: LedgerEntryStatus.Cleared })
@@ -45,12 +50,14 @@ const createTempLedger = async (data) => {
     created_at: data.date,
     active: TempLedgerStatus.Active
   }
+  console.log(tempLedger, 48)
   return await db.insert(tempLedger).into(TEMP_LEDGER)
 }
 
 module.exports = {
   getActiveLedger,
+  getActiveTempLedgers,
   postLedger,
   createTempLedger,
-  clearLedger
+  clearLedger,
 }

@@ -8,6 +8,11 @@ router.get('/api', async (req, res) => {
   res.status(200).json(ledger.sort((a, b) => b.purchase_date - a.purchase_date))
 })
 
+router.get('/api/ledger/temp', async (req, res) => {
+  const ledgers = await LedgerService.getActiveTempLedgers()
+  res.status(200).json(ledgers)
+})
+
 router.post('/api/ledger', async (req, res) => {
   res.status(200).json(LedgerService.postLedger(req.body))
 })
