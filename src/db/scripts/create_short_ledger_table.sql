@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `temp_ledger` (
+CREATE TABLE IF NOT EXISTS `short_ledger` (
   id  BINARY(36) NOT NULL PRIMARY KEY,
   users varchar(255) NOT NULL,
   created_at BIGINT NOT NULL,
