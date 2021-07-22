@@ -3,19 +3,16 @@ const os = require('os');
 let db, dbUri, user, password
 
 if (os.hostname().indexOf("local") > -1) {
-  console.log('LOCAL DB')
   db = process.env.DEV_DB
   dbUri = process.env.DEV_DB_URI
   user = process.env.DEV_USER
   password = process.env.DEV_PASSWORD
 }
 else {
-  console.log('REMOTE DB')
   db = process.env.DB
   dbUri = process.env.DB_URI
   user = process.env.USER
   password = process.env.PASSWORD
-
 }
 
 mySqlConnection = {}

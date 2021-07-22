@@ -4,13 +4,13 @@ const { v4: uuidv4 } = require('uuid');
 const LEDGER = 'ledger'
 
 const LedgerEntryStatus = {
-  Pending: 1,
-  Cleared: 2
+  Pending: 0,
+  Cleared: 1
 }
 
 const getLedger = async () => {
   const db = await DbProvider.getConnection()
-  return await db.select().from(LEDGER).where({ cleared: 0 })
+  return await db.select().from(LEDGER).where({ cleared: LedgerEntryStatus.Pending })
 }
 
 const updateLedger = async (data) => {
