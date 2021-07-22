@@ -12,10 +12,7 @@ function convertBinaryIdtoString(ledger) {
 //LONG LEDGER
 const getLedger = async () => {
   const ledger = await LongLedgerData.getLedger()
-  return ledger.map((row) => {
-    if (row['id'] !== undefined) { row['id'] = row['id'].toString() }
-    return row
-  })
+  return convertBinaryIdtoString(ledger)
 }
 
 const clearLedger = async () => {

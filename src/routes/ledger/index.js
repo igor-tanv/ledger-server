@@ -5,7 +5,7 @@ const router = new express.Router()
 
 //LONG LEDGER
 router.get('/api', async (req, res) => {
-  const ledger = await LedgerService.getActiveLongLedger()
+  const ledger = await LedgerService.getLedger()
   res.status(200).json(ledger.sort((a, b) => b.purchase_date - a.purchase_date))
 })
 
