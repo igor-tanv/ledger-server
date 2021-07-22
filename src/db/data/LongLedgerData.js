@@ -1,7 +1,7 @@
 const DbProvider = require('../providers/DbProvider')
 const { v4: uuidv4 } = require('uuid');
 
-const LEDGER = 'long_ledger'
+const LEDGER = 'ledger'
 
 const LedgerEntryStatus = {
   Pending: 1,
