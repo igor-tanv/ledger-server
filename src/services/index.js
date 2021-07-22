@@ -15,7 +15,7 @@ const getLedger = async () => {
   return convertBinaryIdtoString(ledger)
 }
 
-const updateLedger = async () => {
+const updateLedger = async (data) => {
   data.purchaseDate = new Date(data.purchaseDate).getTime()
   return await LongLedgerData.updateLedger(data)
 }
