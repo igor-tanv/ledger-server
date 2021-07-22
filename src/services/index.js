@@ -15,6 +15,11 @@ const getLedger = async () => {
   return convertBinaryIdtoString(ledger)
 }
 
+const updateLedger = async () => {
+  data.purchaseDate = new Date(data.purchaseDate).getTime()
+  return await LongLedgerData.updateLedger(data)
+}
+
 const clearLedger = async () => {
   return await LongLedgerData.clearLedger()
 }
@@ -58,6 +63,7 @@ module.exports = {
   getLedgers,
   getShortLedgerById,
   updateLedgerById,
+  updateLedger,
   createShortLedger,
   clearLedger
 }

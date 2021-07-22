@@ -10,7 +10,7 @@ router.get('/api', async (req, res) => {
 })
 
 router.post('/api/ledger', async (req, res) => {
-  res.status(200).json(LedgerService.postLedger(req.body))
+  res.status(200).json(LedgerService.updateLedger(req.body))
 })
 
 router.post('/api/ledger/clear', async (req, res) => {
