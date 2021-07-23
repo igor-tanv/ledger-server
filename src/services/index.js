@@ -16,6 +16,7 @@ const getLedger = async () => {
 }
 
 const updateLedger = async (data) => {
+  console.log(data, 19)
   data.purchaseDate = new Date(data.purchaseDate).getTime()
   return await LongLedgerData.updateLedger(data)
 }
@@ -46,12 +47,12 @@ const updateLedgerById = async (data) => {
 }
 
 const createShortLedger = async (data) => {
-  function formatUsersAndShares(shares) {
-    return shares.replace(/[,.;]/g, '')
+  function formatUserString(users) {
+    return users.replace(/[,.;]/g, '')
       .replace(/\s\s+/g, ' ')
-      .replace(/\s*:\s*/g, ":")
+      .trim()
   }
-  data.users = formatUsersAndShares(data.users)
+  data.users = formatUserString(data.users)
   data.date = new Date(data.date).getTime()
   const newLedger = await ShortLedgerData.createLedger(data)
   return convertBinaryIdtoString(newLedger)

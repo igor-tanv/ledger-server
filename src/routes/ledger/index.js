@@ -35,6 +35,4 @@ router.post('/api/ledger/short', async (req, res) => {
   res.status(200).json(newLedger)
 })
 
-
-
 module.exports = router
