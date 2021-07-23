@@ -14,7 +14,7 @@ router.post('/api/ledger', async (req, res) => {
 })
 
 router.post('/api/ledger/clear', async (req, res) => {
-  res.status(200).json(LedgerService.clearLongLedger())
+  res.status(200).json(LedgerService.clearLedger())
 })
 
 //SHORT LEDGERS

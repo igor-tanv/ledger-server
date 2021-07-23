@@ -50,6 +50,7 @@ const createShortLedger = async (data) => {
   function formatUserString(users) {
     return users.replace(/[,.;]/g, '')
       .replace(/\s\s+/g, ' ')
+      .toLowerCase()
       .trim()
   }
   data.users = formatUserString(data.users)
