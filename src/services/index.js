@@ -42,7 +42,7 @@ const getLedgers = async () => {
 
 const getShortLedgerById = async (id) => {
   let { ledger, transactions } = await ShortLedgerData.getLedgerById(id)
-  ledger = convertBinaryIdtoString(ledger)
+  ledger = convertBinaryIdtoString(ledger)[0]
   transactions = convertBinaryIdtoString(transactions)
   return { ledger, transactions }
 }
