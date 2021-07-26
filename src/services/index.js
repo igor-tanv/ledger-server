@@ -21,7 +21,6 @@ const getLedgerUsers = async () => {
 }
 
 const updateLedger = async (data) => {
-  console.log(data, 19)
   data.purchaseDate = new Date(data.purchaseDate).getTime()
   return await LongLedgerData.updateLedger(data)
 }
@@ -42,14 +41,12 @@ const getLedgers = async () => {
 
 const getShortLedgerById = async (id) => {
   const ledger = await ShortLedgerData.getLedgerById(id)
-  console.log(ledger, 22)
-  return ledger
+  return convertBinaryIdtoString(ledger)
 }
 
-const updateLedgerById = async (entry, ledgerId) => {
-  console.log(data, ledgerId, 46)
+const updateLedgerById = async (data, ledgerId) => {
   data.purchaseDate = new Date(data.purchaseDate).getTime()
-  return await ShortLedgerData.updateLedgerById(entry, ledgerId)
+  return await ShortLedgerData.updateLedgerById(data, ledgerId)
 }
 
 const createShortLedger = async (data) => {

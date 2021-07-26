@@ -44,8 +44,8 @@ const updateLedgerById = async (data, ledgerId) => {
     item: data.item,
     cost: data.cost,
   }
-  console.log(transaction, 40)
-  //return await db.insert(transaction).into(TRANSACTION)
+  await db.insert(transaction).into(TRANSACTION)
+  return await getLedgerById(ledgerId)
 }
 
 module.exports = {
