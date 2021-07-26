@@ -41,9 +41,10 @@ const getShortLedgerById = async (id) => {
   return ledger
 }
 
-const updateLedgerById = async (data) => {
+const updateLedgerById = async (entry, ledgerId) => {
+  console.log(data, ledgerId, 46)
   data.purchaseDate = new Date(data.purchaseDate).getTime()
-  return await ShortLedgerData.updateLedger(data)
+  return await ShortLedgerData.updateLedgerById(entry, ledgerId)
 }
 
 const createShortLedger = async (data) => {

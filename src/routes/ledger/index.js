@@ -24,7 +24,6 @@ router.get('/api/ledger/short', async (req, res) => {
 })
 
 router.get('/api/ledger/short/:id', async (req, res) => {
-  console.log(req.params.id, 17)
   const ledger = await LedgerService.getShortLedgerById(req.params.id)
   res.status(200).json(ledger)
 })
@@ -33,6 +32,11 @@ router.post('/api/ledger/short', async (req, res) => {
   const newLedger = await LedgerService.createShortLedger(req.body)
   console.log(newLedger)
   res.status(200).json(newLedger)
+})
+
+router.post('/api/ledger/short/:id', async (req, res) => {
+  await LedgerService.updateLedgerById(req.body, req.params.id)
+  res.status(200).json({})
 })
 
 module.exports = router

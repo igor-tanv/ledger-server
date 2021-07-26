@@ -35,19 +35,18 @@ const createLedger = async (data) => {
   return await db.select().from(LEDGER).where({ id: ledger.id })
 }
 
-const updateLedgerById = async (data) => {
+const updateLedgerById = async (data, ledgerId) => {
   const db = await DbProvider.getConnection()
   const transaction = {
     id: uuidv4(),
-    ledger_id: data.ledgerId,
+    ledger_id: ledgerId,
     user: data.user,
     item: data.item,
     cost: data.cost,
   }
-  return await db.insert(transaction).into(TRANSACTION)
+  console.log(transaction, 40)
+  //return await db.insert(transaction).into(TRANSACTION)
 }
-
-
 
 module.exports = {
   getLedgers,
