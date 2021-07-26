@@ -16,7 +16,9 @@ const getLedgers = async () => {
 
 const getLedgerById = async (id) => {
   const db = await DbProvider.getConnection()
-  return await db.select().from(LEDGER).where({ id: id })
+  const ledger = await db.select().from(LEDGER).where({ id: id })
+  const transactions = await db.select().from(TRANSACTION).where({ ledger_id: id })
+  return { ledger, transactions }
 }
 
 const getTransactionsByLedgerId = async (ledgerId) => {

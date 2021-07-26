@@ -3,9 +3,10 @@ const ShortLedgerData = require('../db/data/ShortLedgerData')
 const users = require('../db/data/users')
 
 
-function convertBinaryIdtoString(ledger) {
-  return ledger.map((row) => {
+function convertBinaryIdtoString(data) {
+  return data.map((row) => {
     if (row['id'] !== undefined) { row['id'] = row['id'].toString() }
+    if (row['ledger_id'] !== undefined) { row['ledger_id'] = row['ledger_id'].toString() }
     return row
   })
 
@@ -40,8 +41,10 @@ const getLedgers = async () => {
 }
 
 const getShortLedgerById = async (id) => {
-  const ledger = await ShortLedgerData.getLedgerById(id)
-  return convertBinaryIdtoString(ledger)
+  let { ledger, transactions } = await ShortLedgerData.getLedgerById(id)
+  ledger = convertBinaryIdtoString(ledger)
+  transactions = convertBinaryIdtoString(transactions)
+  return { ledger, transactions }
 }
 
 const updateLedgerById = async (data, ledgerId) => {
