@@ -1,5 +1,6 @@
 const LongLedgerData = require('../db/data/LongLedgerData')
 const ShortLedgerData = require('../db/data/ShortLedgerData')
+const users = require('../db/data/users')
 
 
 function convertBinaryIdtoString(ledger) {
@@ -13,6 +14,10 @@ function convertBinaryIdtoString(ledger) {
 const getLedger = async () => {
   const ledger = await LongLedgerData.getLedger()
   return convertBinaryIdtoString(ledger)
+}
+
+const getLedgerUsers = async () => {
+  return users
 }
 
 const updateLedger = async (data) => {
@@ -63,6 +68,7 @@ const createShortLedger = async (data) => {
 
 module.exports = {
   getLedger,
+  getLedgerUsers,
   getLedgers,
   getShortLedgerById,
   updateLedgerById,

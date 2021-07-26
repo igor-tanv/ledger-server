@@ -9,6 +9,11 @@ router.get('/api', async (req, res) => {
   res.status(200).json(ledger.sort((a, b) => b.purchase_date - a.purchase_date))
 })
 
+router.get('/api/users', async (req, res) => {
+  const users = await LedgerService.getLedgerUsers()
+  res.status(200).json(users)
+})
+
 router.post('/api/ledger', async (req, res) => {
   res.status(200).json(LedgerService.updateLedger(req.body))
 })
