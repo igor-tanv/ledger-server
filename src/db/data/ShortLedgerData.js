@@ -11,17 +11,17 @@ const LedgerStatus = {
 
 const getLedgers = async () => {
   const db = await DbProvider.getConnection()
-  return await db.select().from(LEDGER).where({ active: 0 })
+  return await db.select().from(LEDGER).where({ active: 1 })
 }
 
 const getLedgerById = async (id) => {
   const db = await DbProvider.getConnection()
-  const ledger = await db.select().from(LEDGER).where({ id: id })
-  const transactions = await db.select().from(TRANSACTION).where({ ledger_id: id })
-  return { ledger, transactions }
+  const ledger = await db.select().from(LEDGER).where({ id })
+  return { ledger }
 }
 
 const getTransactionsByLedgerId = async (ledgerId) => {
+  const db = await DbProvider.getConnection()
   return await db.select().from(TRANSACTION).where({ ledger_id: ledgerId })
 }
 
@@ -51,10 +51,18 @@ const updateLedgerById = async (data, ledgerId) => {
   return await getLedgerById(ledgerId)
 }
 
+const deleteShortLedgerById = async (id) => {
+  console.log(id, 55)
+  const db = await DbProvider.getConnection()
+  return await db.select().from(LEDGER).where({ id }).update({ active: LedgerStatus.Inactive })
+
+}
+
 module.exports = {
   getLedgers,
   getLedgerById,
   createLedger,
   updateLedgerById,
-  getTransactionsByLedgerId
+  getTransactionsByLedgerId,
+  deleteShortLedgerById
 }

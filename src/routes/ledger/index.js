@@ -28,20 +28,25 @@ router.get('/api/ledger/short', async (req, res) => {
   res.status(200).json(ledgers)
 })
 
-router.get('/api/ledger/short/:id', async (req, res) => {
-  const ledger = await LedgerService.getShortLedgerById(req.params.id)
-  res.status(200).json(ledger)
-})
-
 router.post('/api/ledger/short', async (req, res) => {
   const newLedger = await LedgerService.createShortLedger(req.body)
   console.log(newLedger)
   res.status(200).json(newLedger)
 })
 
+router.get('/api/ledger/short/:id', async (req, res) => {
+  const ledger = await LedgerService.getShortLedgerById(req.params.id)
+  res.status(200).json(ledger)
+})
+
 router.post('/api/ledger/short/:id', async (req, res) => {
   const ledger = await LedgerService.updateLedgerById(req.body, req.params.id)
   res.status(200).json(ledger)
+})
+
+router.post('/api/ledger/short/delete/:id', async (req, res) => {
+  await LedgerService.deleteShortLedgerById(req.params.id)
+  res.status(200).json({})
 })
 
 module.exports = router

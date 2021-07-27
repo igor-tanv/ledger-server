@@ -17,6 +17,7 @@ const getLedger = async () => {
   return convertBinaryIdtoString(ledger).sort((a, b) => b.purchase_date - a.purchase_date)
 }
 
+//TODO fix this hack, perhaps store users in the SQL table
 const getLedgerUsers = async () => {
   return users
 }
@@ -31,17 +32,16 @@ const clearLedger = async () => {
 }
 
 
+
 //SHORT LEDGERS
-const getLedgers = async () => {
+const getActiveShortLedgers = async () => {
   const ledgers = await ShortLedgerData.getLedgers()
-  return ledgers.map((row) => {
-    if (row['id'] !== undefined) { row['id'] = row['id'].toString() }
-    return row
-  })
+  return convertBinaryIdtoString(ledgers)
 }
 
 const getShortLedgerById = async (id) => {
-  let { ledger, transactions } = await ShortLedgerData.getLedgerById(id)
+  let { ledger } = await ShortLedgerData.getLedgerById(id)
+  let transactions = await ShortLedgerData.getTransactionsByLedgerId(id)
   ledger = convertBinaryIdtoString(ledger)[0]
   transactions = convertBinaryIdtoString(transactions).sort((a, b) => b.purchase_date - a.purchase_date)
   return { ledger, transactions }
@@ -49,7 +49,8 @@ const getShortLedgerById = async (id) => {
 
 const updateLedgerById = async (data, ledgerId) => {
   data.purchaseDate = new Date(data.purchaseDate).getTime()
-  return await ShortLedgerData.updateLedgerById(data, ledgerId)
+  await ShortLedgerData.updateLedgerById(data, ledgerId)
+  return await getShortLedgerById(ledgerId)
 }
 
 const createShortLedger = async (data) => {
@@ -65,15 +66,20 @@ const createShortLedger = async (data) => {
   return convertBinaryIdtoString(newLedger)
 }
 
+const deleteShortLedgerById = async (id) => {
+  return await ShortLedgerData.deleteShortLedgerById(id)
+}
+
 
 module.exports = {
   getLedger,
   getLedgerUsers,
-  getLedgers,
+  getActiveShortLedgers,
   getShortLedgerById,
   updateLedgerById,
   updateLedger,
   createShortLedger,
-  clearLedger
+  clearLedger,
+  deleteShortLedgerById
 }
 
