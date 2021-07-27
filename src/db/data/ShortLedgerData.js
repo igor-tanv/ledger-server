@@ -45,6 +45,7 @@ const updateLedgerById = async (data, ledgerId) => {
     user: data.user,
     item: data.item,
     cost: data.cost,
+    purchase_date: data.purchaseDate
   }
   await db.insert(transaction).into(TRANSACTION)
   return await getLedgerById(ledgerId)

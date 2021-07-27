@@ -14,7 +14,7 @@ function convertBinaryIdtoString(data) {
 //LONG LEDGER
 const getLedger = async () => {
   const ledger = await LongLedgerData.getLedger()
-  return convertBinaryIdtoString(ledger)
+  return convertBinaryIdtoString(ledger).sort((a, b) => b.purchase_date - a.purchase_date)
 }
 
 const getLedgerUsers = async () => {
@@ -43,7 +43,7 @@ const getLedgers = async () => {
 const getShortLedgerById = async (id) => {
   let { ledger, transactions } = await ShortLedgerData.getLedgerById(id)
   ledger = convertBinaryIdtoString(ledger)[0]
-  transactions = convertBinaryIdtoString(transactions)
+  transactions = convertBinaryIdtoString(transactions).sort((a, b) => b.purchase_date - a.purchase_date)
   return { ledger, transactions }
 }
 
