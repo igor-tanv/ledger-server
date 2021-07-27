@@ -52,7 +52,6 @@ const updateLedgerById = async (data, ledgerId) => {
 }
 
 const deleteShortLedgerById = async (id) => {
-  console.log(id, 55)
   const db = await DbProvider.getConnection()
   return await db.select().from(LEDGER).where({ id }).update({ active: LedgerStatus.Inactive })
 

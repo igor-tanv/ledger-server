@@ -30,7 +30,6 @@ router.get('/api/ledger/short', async (req, res) => {
 
 router.post('/api/ledger/short', async (req, res) => {
   const newLedger = await LedgerService.createShortLedger(req.body)
-  console.log(newLedger)
   res.status(200).json(newLedger)
 })
 
