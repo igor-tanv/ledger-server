@@ -31,7 +31,6 @@ const getConnection = async () => {
       }
     }
     this.mySqlConnection = Knex(config).on('query-error', function (error, obj, builder) {
-      console.log('Error', error)
     }).on('query-response', function (resp, obj, builder) {
       console.log('Success')
     })

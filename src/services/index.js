@@ -1,10 +1,12 @@
 const LongLedgerData = require('../db/data/LongLedgerData')
 const ShortLedgerData = require('../db/data/ShortLedgerData')
+const users = require('../db/data/users')
 
 
-function convertBinaryIdtoString(ledger) {
-  return ledger.map((row) => {
+function convertBinaryIdtoString(data) {
+  return data.map((row) => {
     if (row['id'] !== undefined) { row['id'] = row['id'].toString() }
+    if (row['ledger_id'] !== undefined) { row['ledger_id'] = row['ledger_id'].toString() }
     return row
   })
 
@@ -12,7 +14,12 @@ function convertBinaryIdtoString(ledger) {
 //LONG LEDGER
 const getLedger = async () => {
   const ledger = await LongLedgerData.getLedger()
-  return convertBinaryIdtoString(ledger)
+  return convertBinaryIdtoString(ledger).sort((a, b) => b.purchase_date - a.purchase_date)
+}
+
+//TODO fix this hack, perhaps store users in the SQL table
+const getLedgerUsers = async () => {
+  return users
 }
 
 const updateLedger = async (data) => {
@@ -25,46 +32,54 @@ const clearLedger = async () => {
 }
 
 
+
 //SHORT LEDGERS
-const getLedgers = async () => {
+const getActiveShortLedgers = async () => {
   const ledgers = await ShortLedgerData.getLedgers()
-  return ledgers.map((row) => {
-    if (row['id'] !== undefined) { row['id'] = row['id'].toString() }
-    return row
-  })
+  return convertBinaryIdtoString(ledgers)
 }
 
 const getShortLedgerById = async (id) => {
-  const ledger = await ShortLedgerData.getLedgerById(id)
-  console.log(ledger, 22)
-  return ledger
+  let { ledger } = await ShortLedgerData.getLedgerById(id)
+  let transactions = await ShortLedgerData.getTransactionsByLedgerId(id)
+  ledger = convertBinaryIdtoString(ledger)[0]
+  transactions = convertBinaryIdtoString(transactions).sort((a, b) => b.purchase_date - a.purchase_date)
+  return { ledger, transactions }
 }
 
-const updateLedgerById = async (data) => {
+const updateLedgerById = async (data, ledgerId) => {
   data.purchaseDate = new Date(data.purchaseDate).getTime()
-  return await ShortLedgerData.updateLedger(data)
+  await ShortLedgerData.updateLedgerById(data, ledgerId)
+  return await getShortLedgerById(ledgerId)
 }
 
 const createShortLedger = async (data) => {
-  function formatUsersAndShares(shares) {
-    return shares.replace(/[,.;]/g, '')
+  function formatUserString(users) {
+    return users.replace(/[,.;]/g, '')
       .replace(/\s\s+/g, ' ')
-      .replace(/\s*:\s*/g, ":")
+      .toLowerCase()
+      .trim()
   }
-  data.users = formatUsersAndShares(data.users)
+  data.users = formatUserString(data.users)
   data.date = new Date(data.date).getTime()
   const newLedger = await ShortLedgerData.createLedger(data)
   return convertBinaryIdtoString(newLedger)
 }
 
+const deleteShortLedgerById = async (id) => {
+  return await ShortLedgerData.deleteShortLedgerById(id)
+}
+
 
 module.exports = {
   getLedger,
-  getLedgers,
+  getLedgerUsers,
+  getActiveShortLedgers,
   getShortLedgerById,
   updateLedgerById,
   updateLedger,
   createShortLedger,
-  clearLedger
+  clearLedger,
+  deleteShortLedgerById
 }
 
