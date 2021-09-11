@@ -1,3 +1,3 @@
-const users = 'seb  nick olly'
+const users = 'seb nick olly'
 
 module.exports = { users }
